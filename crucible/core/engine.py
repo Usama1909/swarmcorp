@@ -39,7 +39,11 @@ class Engine:
 
     def run_cycle(self,
                   candidates: List[Candidate],
-                  n_candidates_total: int = None) -> Dict[str, Any]:
+                  n_candidates_total: int = None,
+                  adapter=None,
+                  context: Dict[str, Any] = None) -> Dict[str, Any]:
+        if adapter is not None and context is None:
+            context = adapter.context()
         if n_candidates_total is None:
             n_candidates_total = max(1, len(candidates))
 
@@ -86,7 +90,9 @@ class Engine:
                     candidate=candidate,
                     verdict=verdict,
                     recent_verdict=recent_verdict,
-                    context_match=True,
+                    context_match=(adapter.applies_to(candidate, context)
+                                   if adapter is not None and context is not None
+                                   else True),
                     degraded_strikes=strikes,
                     weak_streak=weak,
                     proven_streak=prov,
