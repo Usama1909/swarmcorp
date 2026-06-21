@@ -16,7 +16,10 @@ import argparse
 import psycopg2
 from dotenv import load_dotenv
 
-load_dotenv(os.getenv("CRUCIBLE_ENV", "/root/.env"))
+for _p in [os.getenv("CRUCIBLE_ENV"), ".env", os.path.expanduser("~/.env"), "/root/.env"]:
+    if _p and os.path.exists(_p):
+        load_dotenv(_p)
+        break
 
 DB = {"host": os.getenv("ARIA_DB_HOST", "localhost"), "port": 5432,
       "dbname": os.getenv("CRUCIBLE_DB", "aria_db"),

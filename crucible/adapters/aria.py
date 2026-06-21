@@ -12,7 +12,10 @@ from typing import Dict, Any, List
 from dotenv import load_dotenv
 from crucible.core.vocabulary import Candidate, CandidateStatus, Outcome
 
-load_dotenv("/root/.env")
+for _p in [os.getenv("CRUCIBLE_ENV"), ".env", os.path.expanduser("~/.env"), "/root/.env"]:
+    if _p and os.path.exists(_p):
+        load_dotenv(_p)
+        break
 ARIA_DB = {"host": os.getenv("ARIA_DB_HOST", "localhost"), "port": 5432,
            "dbname": "aria_db", "user": "postgres",
            "password": os.getenv("ARIA_DB_PASSWORD", "")}

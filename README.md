@@ -109,4 +109,4 @@ outliers) — it never crashes and never returns a nonsensical call.
 
 ## License
 
-MIT
+Apache-2.0
