@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "crucible-engine"
+version = "0.1.0"
+description = "An engine that proves which candidates have real edge — not just lucky edge"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+requires-python = ">=3.10"
+dependencies = [
+    "psycopg2-binary>=2.9",
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "pandas>=2.0",
+    "pyyaml>=6.0",
+]
+
+[project.scripts]
+crucible = "crucible.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["crucible*"]
